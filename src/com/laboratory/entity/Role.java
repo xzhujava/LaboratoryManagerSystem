@@ -1,29 +1,39 @@
 package com.laboratory.entity;
 
+import com.laboratory.common.annotation.Column;
+import com.laboratory.common.annotation.Entity;
+import com.laboratory.common.annotation.Id;
+
 import java.io.Serializable;
 
 /**
- * @Author 张栓
- * @Date 2020/6/3 17:43
- * @Version 1.0
+ * 角色信息
+ * @author 张栓
+ * @date 2020/6/3 17:43
+ * @version 1.0
  */
+@Entity("role")
 public class Role implements Serializable {
     private static final long serialVersionUID=1L;
     /**
      * 角色id
      */
+    @Id("role_id")
     private Integer roleId;
     /**
      *角色名称
      */
+    @Column("role_name")
     private String roleName;
     /**
      *角色权限字符串
      */
+    @Column("role_key")
     private String roleKey;
     /**
      *备注
      */
+    @Column("remark")
     private String remark;
 
     public Integer getRoleId() {

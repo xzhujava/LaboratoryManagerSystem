@@ -1,38 +1,49 @@
 package com.laboratory.entity;
 
+import com.laboratory.common.annotation.Column;
+import com.laboratory.common.annotation.Entity;
+import com.laboratory.common.annotation.Id;
+
 import java.io.Serializable;
 
 /**
- * @Author 张栓
- * @Date 2020/6/3 17:45
- * @Version 1.0
+ * 用户信息
+ * @author 张栓
+ * @date 2020/6/3 17:45
+ * @version 1.0
  */
+@Entity("user")
 public class User implements Serializable {
     private static final long serialVersionUID=1L;
 
     /**
      * 用户id
      */
+    @Id("user_id")
     private Integer userId;
 
     /**
      * 用户姓名
      */
+    @Column("user_name")
     private String userName;
 
     /**
      * 用户密码
      */
+    @Column("user_password")
     private String userPassword;
 
     /**
      * 用户性别
      */
+    @Column("user_sex")
     private String userSex;
 
     /**
      * 备注
      */
+    @Column("remark")
     private String remark;
 
     public Integer getUserId() {

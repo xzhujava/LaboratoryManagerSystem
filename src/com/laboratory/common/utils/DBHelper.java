@@ -1,4 +1,4 @@
-package com.laboratory.db;
+package com.laboratory.common.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,6 +9,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
+/**
+ * 数据库连接工具类
+ * @author 小柱IT
+ * @date 2020/6/3 21:35
+ */
 public class DBHelper {
 	private static String driver;
 	private static String name;
@@ -21,7 +26,7 @@ public class DBHelper {
 	 */
 	public static void init(){
 		Properties prop = new Properties();
-		InputStream in = DBHelper.class.getResourceAsStream("info.properties");
+		InputStream in = DBHelper.class.getClassLoader().getResourceAsStream("info.properties");
 		try {
 			prop.load(in);
 		} catch (IOException e) {
@@ -36,7 +41,7 @@ public class DBHelper {
 	 * 获取数据库连接
 	 * @return
 	 */
-	public static Connection getconn(){
+	public static Connection getConnection(){
 		init();
 		try {
 			Class.forName(driver);
@@ -50,11 +55,11 @@ public class DBHelper {
 	} 
 	
 	/**
-	 *  关闭数据库连接
+	 * 关闭数据库连接
 	 * @param stat
 	 * @param rs
 	 */
-	public static void closeConn(Statement stat,ResultSet rs){
+	public static void release(Statement stat,ResultSet rs){
 		if(rs!=null){
 			try {
 				rs.close();
@@ -77,5 +82,4 @@ public class DBHelper {
 			}
 		}
 	}
-	
 }

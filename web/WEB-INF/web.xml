@@ -3,4 +3,12 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+    <filter>
+        <filter-name>sysFilter</filter-name>
+        <filter-class>com.laboratory.filter.SysFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>sysFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 </web-app>

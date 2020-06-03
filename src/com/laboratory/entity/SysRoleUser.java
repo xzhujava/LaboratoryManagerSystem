@@ -1,23 +1,30 @@
 package com.laboratory.entity;
 
+import com.laboratory.common.annotation.Entity;
+import com.laboratory.common.annotation.Id;
+
 import java.io.Serializable;
 
 /**
- * @Author 张栓
- * @Date 2020/6/3 17:47
- * @Version 1.0
+ * 角色和用户关联信息
+ * @author 张栓
+ * @date 2020/6/3 17:47
+ * @version 1.0
  */
+@Entity("sys_role_user")
 public class SysRoleUser implements Serializable {
     private static final long serialVersionUID=1L;
 
     /**
      * 角色id
      */
+    @Id("role_id")
     private Integer roleId;
 
     /**
      * 用户id
      */
+    @Id("user_id")
     private Integer userId;
 
     public Integer getRoleId() {
