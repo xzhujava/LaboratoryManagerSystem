@@ -1,6 +1,7 @@
 package com.laboratory.common.exception;
 
 /**
+ * 系统全局异常
  * @author 小柱IT
  * @version 1.0
  * @date 2020/6/3 21:28

@@ -27,9 +27,11 @@ import com.laboratory.common.utils.DBHelper;
 
 /**
  * 泛型DAO的JDBC实现
- * @author 杨信
+ * @author 小柱IT
+ * @date 2020/6/3 21:10
  * @version 1.0
  */
+@SuppressWarnings("all")
 public class GenericDaoImpl<T> implements GenericDao<T> {
 
     //表的别名
