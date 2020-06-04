@@ -1,0 +1,16 @@
+body {
+    background-image: url("../image/bg2.jpg");
+    background-size: cover;
+    background-repeat: no-repeat no-repeat;
+}
+.login{
+    width: 20%;
+    height: 18em;
+    margin: 15em auto;
+    box-shadow: 5px 5px 5px #453d3d;
+    padding:28px 47px 20px 47px ;
+    background-color: #b1dae5;
+}
+.login form{
+    margin-top: 1em;
+}

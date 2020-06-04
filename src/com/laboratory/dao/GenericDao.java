@@ -10,11 +10,11 @@ import java.util.Map;
  */
 public interface GenericDao<T> {
 
-    void save(T t) throws Exception;
+    Integer save(T t) throws Exception;
 
-    void delete(Object id,Class<T> clazz) throws Exception;
+    Integer delete(Object id,Class<T> clazz) throws Exception;
 
-    void update(T t) throws Exception;
+    Integer update(T t) throws Exception;
 
     T get(Object id,Class<T> clazz) throws Exception;
 

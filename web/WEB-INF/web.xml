@@ -3,6 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+    <!-- 过滤器注册 -->
     <filter>
         <filter-name>sysFilter</filter-name>
         <filter-class>com.laboratory.filter.SysFilter</filter-class>
@@ -11,4 +12,62 @@
         <filter-name>sysFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+    <filter>
+        <filter-name>encdingFilter</filter-name>
+        <filter-class>com.laboratory.filter.EncdingFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>encdingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- servlet注册 -->
+    <servlet>
+        <servlet-name>registerServlet</servlet-name>
+        <servlet-class>com.laboratory.servlet.RegisterServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>registerServlet</servlet-name>
+        <url-pattern>/registerServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>loginServlet</servlet-name>
+        <servlet-class>com.laboratory.servlet.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>loginServlet</servlet-name>
+        <url-pattern>/loginServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>laboratoryServlet</servlet-name>
+        <servlet-class>com.laboratory.servlet.LaboratoryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>laboratoryServlet</servlet-name>
+        <url-pattern>/laboratoryServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>appointLaboratoryServlet</servlet-name>
+        <servlet-class>com.laboratory.servlet.AppointLaboratoryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>appointLaboratoryServlet</servlet-name>
+        <url-pattern>/appointLaboratoryServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>getStudentServlet</servlet-name>
+        <servlet-class>com.laboratory.servlet.GetStudentServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getStudentServlet</servlet-name>
+        <url-pattern>/getStudentServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>getAppointServlet</servlet-name>
+        <servlet-class>com.laboratory.servlet.GetAppointServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getAppointServlet</servlet-name>
+        <url-pattern>/getAppointServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

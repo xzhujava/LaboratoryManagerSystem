@@ -15,6 +15,22 @@ import java.io.Serializable;
 @Entity("user")
 public class User implements Serializable {
     private static final long serialVersionUID=1L;
+    public User(){
+    }
+
+    public User(String userNo, String userPassword) {
+        this.userNo = userNo;
+        this.userPassword = userPassword;
+    }
+
+    public User(String userName, String userNo, String userPassword, String userSex, Integer userType, String remark) {
+        this.userName = userName;
+        this.userNo = userNo;
+        this.userPassword = userPassword;
+        this.userSex = userSex;
+        this.userType = userType;
+        this.remark = remark;
+    }
 
     /**
      * 用户id
@@ -29,6 +45,12 @@ public class User implements Serializable {
     private String userName;
 
     /**
+     * 学号或工号
+     */
+    @Column("user_no")
+    private String userNo;
+
+    /**
      * 用户密码
      */
     @Column("user_password")
@@ -39,6 +61,12 @@ public class User implements Serializable {
      */
     @Column("user_sex")
     private String userSex;
+
+    /**
+     * 用户类型：0管理员 1教师 2学生
+     */
+    @Column("user_type")
+    private Integer userType;
 
     /**
      * 备注
@@ -60,6 +88,14 @@ public class User implements Serializable {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getUserNo() {
+        return userNo;
+    }
+
+    public void setUserNo(String userNo) {
+        this.userNo = userNo;
     }
 
     public String getUserPassword() {
@@ -86,13 +122,23 @@ public class User implements Serializable {
         this.remark = remark;
     }
 
+    public Integer getUserType() {
+        return userType;
+    }
+
+    public void setUserType(Integer userType) {
+        this.userType = userType;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "userId=" + userId +
                 ", userName='" + userName + '\'' +
+                ", userNo='" + userNo + '\'' +
                 ", userPassword='" + userPassword + '\'' +
                 ", userSex='" + userSex + '\'' +
+                ", userType=" + userType +
                 ", remark='" + remark + '\'' +
                 '}';
     }

@@ -4,18 +4,10 @@ import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.sql.Types;
-import java.util.ArrayList;
+import java.sql.*;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
 
 import com.laboratory.common.annotation.Column;
@@ -38,7 +30,7 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
     private static final String TABLE_ALIAS = "t";
 
     @Override
-    public void save(T t) throws Exception {
+    public Integer save(T t) throws Exception {
         Class<?> clazz = t.getClass();
         //获得表名
         String tableName = getTableName(clazz);
@@ -48,11 +40,18 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
         StringBuilder placeholders = new StringBuilder();	//占位符
         Field[] fields = clazz.getDeclaredFields();
         for (Field field : fields) {
+            if("serialVersionUID".equals(field.getName()) ){
+                continue;
+            }
             PropertyDescriptor pd = new PropertyDescriptor(field.getName(),t.getClass());
             if (field.isAnnotationPresent(Id.class)) {
-                fieldNames.append(field.getAnnotation(Id.class).value()).append(",");
-                fieldValues.add(pd.getReadMethod().invoke(t));
-            } else if(field.isAnnotationPresent(Column.class)) {
+                //数据库设置了主键自增，这里不需要对id添加操作;
+                //如果数据库未设置主键策略这里需要处理
+                continue;
+//                fieldNames.append(field.getAnnotation(Id.class).value()).append(",");
+//                fieldValues.add(pd.getReadMethod().invoke(t));
+            }
+            if(field.isAnnotationPresent(Column.class)) {
                 fieldNames.append(field.getAnnotation(Column.class).value()).append(",");
                 fieldValues.add(pd.getReadMethod().invoke(t));
             }
@@ -67,18 +66,24 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
         sql.append("insert into ").append(tableName)
                 .append(" (").append(fieldNames.toString())
                 .append(") values (").append(placeholders).append(")") ;
-        PreparedStatement ps = DBHelper.getConnection().prepareStatement(sql.toString());
+        PreparedStatement ps = DBHelper.getConnection().prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
         //设置SQL参数占位符的值
         setParameter(fieldValues, ps, false);
         //执行SQL
-        ps.execute();
+        ps.executeUpdate();
+        ResultSet resultSet = ps.getGeneratedKeys();
+        if(resultSet.next()){
+            Integer id = resultSet.getInt(1);
+            return id;
+        }
         DBHelper.release(ps, null);
 
         System.out.println(sql + "\n" + clazz.getSimpleName() + "添加成功!");
+        return -1;
     }
 
     @Override
-    public void delete(Object id,Class<T> clazz) throws Exception {
+    public Integer delete(Object id,Class<T> clazz) throws Exception {
         //获得表名
         String tableName = getTableName(clazz);
         //获得ID字段名和值
@@ -101,14 +106,15 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
         PreparedStatement ps = DBHelper.getConnection().prepareStatement(sql);
         ps.setObject(1, id);
         //执行SQL
-        ps.execute();
+        int deleteNum = ps.executeUpdate();
         DBHelper.release(ps,null);
 
         System.out.println(sql + "\n" + clazz.getSimpleName() + "删除成功!");
+        return deleteNum;
     }
 
     @Override
-    public void update(T t) throws Exception {
+    public Integer update(T t) throws Exception {
         Class<?> clazz = t.getClass();
         //获得表名
         String tableName = getTableName(clazz);
@@ -120,6 +126,10 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
         Object idFieldValue = "";
         Field[] fields = clazz.getDeclaredFields();
         for (Field field : fields) {
+            //跳过序列化属性
+            if("serialVersionUID".equals(field.getName()) ){
+                continue;
+            }
             PropertyDescriptor pd = new PropertyDescriptor(field.getName(),t.getClass());
             if (field.isAnnotationPresent(Id.class)) {
                 idFieldName = field.getAnnotation(Id.class).value();
@@ -149,10 +159,12 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
         setParameter(fieldValues, ps, false);
 
         //执行SQL
-        ps.execute();
+        int updateNum = ps.executeUpdate();
         DBHelper.release(ps, null);
 
         System.out.println(sql + "\n" + clazz.getSimpleName() + "修改成功.");
+
+        return updateNum;
     }
 
     @Override
@@ -275,6 +287,8 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
                 paramVal = rs.getCharacterStream(propertyName);
             } else if (clazzField == Date.class) {
                 paramVal = rs.getTimestamp(propertyName);
+            } else if (clazzField == LocalDateTime.class) {
+                paramVal = rs.getObject(propertyName,LocalDateTime.class);
             } else if (clazzField.isArray()) {
                 paramVal = rs.getString(propertyName).split(",");	//以逗号分隔的字符串
             }
@@ -336,6 +350,10 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
             throws SQLException {
         for (int i = 1; i <= values.size(); i++) {
             Object fieldValue = values.get(i-1);
+            if(null == fieldValue){
+                ps.setObject(i,null);
+                continue;
+            }
             Class<?> clazzValue = fieldValue.getClass();
             if (clazzValue == String.class) {
                 if (isSearch)
@@ -351,6 +369,8 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
                 ps.setObject(i, fieldValue,Types.CHAR);
             } else if (clazzValue == Date.class) {
                 ps.setTimestamp(i, new Timestamp(((Date) fieldValue).getTime()));
+            } else if (clazzValue == LocalDateTime.class) {
+                ps.setObject(i, fieldValue);
             } else if (clazzValue.isArray()) {
                 Object[] arrayValue = (Object[]) fieldValue;
                 StringBuffer sb = new StringBuffer();

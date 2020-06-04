@@ -16,6 +16,20 @@ import java.time.LocalDateTime;
 public class Reservation implements Serializable {
     private static final long serialVersionUID=1L;
 
+    public Reservation() {
+    }
+
+    //新增预约记录
+    public Reservation(Integer laboratoryId, Integer userId, LocalDateTime reservationTime, LocalDateTime createTime, String remark) {
+        this.laboratoryId = laboratoryId;
+        this.userId = userId;
+        this.reservationTime = reservationTime;
+        this.createTime = createTime;
+        this.remark = remark;
+        //新增时默认为0
+        this.status = 0;
+    }
+
     /**
      *预约id
      */
@@ -51,6 +65,18 @@ public class Reservation implements Serializable {
      */
     @Column("remark")
     private String remark;
+
+    /**
+     * 预约状态 0：已预约 1：已完成使用
+     */
+    @Column("status")
+    private Integer status;
+
+    /**
+     * 实验成绩
+     */
+    @Column("score")
+    private Double score;
 
     public Integer getReservationId() {
         return reservationId;
@@ -100,6 +126,22 @@ public class Reservation implements Serializable {
         this.remark = remark;
     }
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Double getScore() {
+        return score;
+    }
+
+    public void setScore(Double score) {
+        this.score = score;
+    }
+
     @Override
     public String toString() {
         return "Reservation{" +
@@ -109,6 +151,8 @@ public class Reservation implements Serializable {
                 ", reservationTime=" + reservationTime +
                 ", createTime=" + createTime +
                 ", remark='" + remark + '\'' +
+                ", status=" + status +
+                ", score=" + score +
                 '}';
     }
 }
