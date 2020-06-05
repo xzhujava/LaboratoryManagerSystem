@@ -3,8 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script>
+
+    </script>
+    <style type="text/css">
+        .my-transition {
+            margin-top: 200px;
+            width: 100px;
+            height: 100px;
+            background: yellow;
+            transform: scale(0.5, 0.5);
+            opacity: 0;
+            transition: transform 0.5s linear, opacity 0.5s linear;
+        }
+
+        .my-click-transiton {
+            opacity: 1;
+            transform: scale(1, 1);
+        }
+
+
+    </style>
 </head>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
 <body>
+<input type="button" id="mybutton" value="click">
+<div class="my-transition"></div>
+<script>
+    //用js触发CSS3-transition过渡动画
+    $('#mybutton').click(function() {
+        var myTransition = $('.my-transition');
+        if (myTransition.hasClass('my-click-transiton')) {
+            myTransition.removeClass('my-click-transiton')
+        } else {
+            myTransition.addClass('my-click-transiton');
+        }
+    });
+</script>
 
 </body>
 </html>

@@ -3,10 +3,16 @@ body {
     background-size: cover;
     background-repeat: no-repeat no-repeat;
 }
+.title{
+    width: 25%;
+    height: 5em;
+    margin: 10em auto;
+    background: url("../image/title.png") 73px 10px no-repeat;
+}
 .login{
     width: 20%;
     height: 18em;
-    margin: 15em auto;
+    margin: -10em auto;
     box-shadow: 5px 5px 5px #453d3d;
     padding:28px 47px 20px 47px ;
     background-color: #b1dae5;
@@ -14,3 +20,19 @@ body {
 .login form{
     margin-top: 1em;
 }
+.register{
+    display: none;
+    width: 20%;
+    height: 28em;
+    margin: -10em auto;
+    box-shadow: 5px 5px 5px #453d3d;
+    padding:28px 47px 20px 47px ;
+    background-color: #b1dae5;
+}
+.register form{
+    margin-top: 1em;
+}
+.form-group .radio-inline{
+    margin-left: 1.1em;
+}
+
