@@ -31,4 +31,11 @@ public class Test {
         LocalDateTime localDateTime = DateTimeUtil.parseStringToLocalDateTime(str);
         System.out.println(localDateTime);
     }
+
+    @org.junit.Test
+    public void testString(){
+        String sql = "select * from user where id in (1,2,3,";
+        sql = sql.substring(0,sql.length()-1);
+        System.out.println(sql);
+    }
 }

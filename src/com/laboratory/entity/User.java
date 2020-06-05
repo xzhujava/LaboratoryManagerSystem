@@ -23,12 +23,11 @@ public class User implements Serializable {
         this.userPassword = userPassword;
     }
 
-    public User(String userName, String userNo, String userPassword, String userSex, Integer userType, String remark) {
+    public User(String userName, String userNo, String userPassword, String userSex,String remark) {
         this.userName = userName;
         this.userNo = userNo;
         this.userPassword = userPassword;
         this.userSex = userSex;
-        this.userType = userType;
         this.remark = remark;
     }
 
@@ -61,12 +60,6 @@ public class User implements Serializable {
      */
     @Column("user_sex")
     private String userSex;
-
-    /**
-     * 用户类型：0管理员 1教师 2学生
-     */
-    @Column("user_type")
-    private Integer userType;
 
     /**
      * 备注
@@ -122,14 +115,6 @@ public class User implements Serializable {
         this.remark = remark;
     }
 
-    public Integer getUserType() {
-        return userType;
-    }
-
-    public void setUserType(Integer userType) {
-        this.userType = userType;
-    }
-
     @Override
     public String toString() {
         return "User{" +
@@ -138,7 +123,6 @@ public class User implements Serializable {
                 ", userNo='" + userNo + '\'' +
                 ", userPassword='" + userPassword + '\'' +
                 ", userSex='" + userSex + '\'' +
-                ", userType=" + userType +
                 ", remark='" + remark + '\'' +
                 '}';
     }

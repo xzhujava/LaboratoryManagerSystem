@@ -2,10 +2,10 @@ package com.laboratory.servlet;
 
 import com.alibaba.fastjson.JSONObject;
 import com.laboratory.common.api.R;
+import com.laboratory.entity.Menu;
 import com.laboratory.entity.User;
-import com.laboratory.service.UserService;
-import com.laboratory.service.impl.UserServiceImpl;
-import com.sun.org.apache.xpath.internal.objects.XNull;
+import com.laboratory.service.MenuService;
+import com.laboratory.service.impl.MenuServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,39 +19,28 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 查询学生信息
  * @author 张栓
  * @version 1.0
- * @date 2020/6/4 15:11
+ * @date 2020/6/5 17:35
  */
-public class GetStudentServlet extends HttpServlet {
-
-    private UserService userService = new UserServiceImpl();
-
-    private Map<String,Object> map = null;
+public class MenuServlet extends HttpServlet {
+    private MenuService menuService = new MenuServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request, response);
+        doPost(request,response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         PrintWriter writer = response.getWriter();
-        map = new HashMap<>();
         try {
-            String userName = request.getParameter("userName");
-            if(null != userName && userName.length()>0){
-                map.put("user_name",userName);
-            }
-            String userNo = request.getParameter("userNo");
-            if(null != userNo && userNo.length()>0){
-                map.put("user_no",userNo);
-            }
-            List<User> studentList = userService.findStudent(map);
-            session.setAttribute("studentList",studentList);
-            writer.write(JSONObject.toJSONString(R.data(studentList,"查询成功")));
+            User user = (User) session.getAttribute("user");
+            Map<String,Object> userId = new HashMap<>();
+            userId.put("user_id",user.getUserId());
+            List<Menu> menuList = menuService.findMenu(userId);
+            writer.write(JSONObject.toJSONString(R.data(menuList,"查询成功")));
             writer.flush();
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,8 +1,13 @@
 package com.laboratory.servlet;
 
+import com.alibaba.fastjson.JSONObject;
+import com.laboratory.common.api.R;
 import com.laboratory.common.enumerate.UserTypeEnum;
+import com.laboratory.entity.Menu;
 import com.laboratory.entity.User;
+import com.laboratory.service.MenuService;
 import com.laboratory.service.UserService;
+import com.laboratory.service.impl.MenuServiceImpl;
 import com.laboratory.service.impl.UserServiceImpl;
 
 import javax.servlet.ServletException;
@@ -13,6 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 学生注册
@@ -23,6 +31,7 @@ import java.io.PrintWriter;
 public class RegisterServlet extends HttpServlet {
 
     private UserService userService = new UserServiceImpl();
+    private MenuService menuService = new MenuServiceImpl();
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,12 +43,19 @@ public class RegisterServlet extends HttpServlet {
             String userPassword = request.getParameter("userPassword");
             String userSex = request.getParameter("userSex");
             String remark = request.getParameter("remark");
-            User user = new User(userName,userNo, userPassword,userSex, UserTypeEnum.STUDENT.getValue(),remark);
+            User user = new User(userName,userNo, userPassword,userSex,remark);
             User registered = userService.registered(user);
             if(null != registered){
                 //注册成功，保存用户信息到seesion
                 session.setAttribute("user",registered);
-                //跳转到首页
+                //注册成功，查询菜单
+                Map<String,Object> userId = new HashMap<>();
+                userId.put("user_id",registered.getUserId());
+                List<Menu> menu = menuService.findMenu(userId);
+                session.setAttribute("menu",menu);
+                writer.write(JSONObject.toJSONString(R.data(registered,"注册成功")));
+                writer.flush();
+                //因为前端是发送的ajax请求，所以这里直接把登录成功的消息返回给前端，由前端去跳转
             }else{
                 writer.print("注册失败，请重试");
                 writer.flush();

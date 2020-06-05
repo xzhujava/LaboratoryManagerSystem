@@ -7,9 +7,9 @@ package com.laboratory.common.enumerate;
  * @Version 1.0
  */
 public enum UserTypeEnum {
-    ADMIN(1),
-    TEACHER(2),
-    STUDENT(3),
+    ADMIN(2),
+    TEACHER(3),
+    STUDENT(1),
     NULL(-1);
 
 

@@ -1,10 +1,11 @@
-<!--<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.laboratory.entity.User" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf-8" %>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;
-%>-->
-<!DOCTYPE html>
-<html lang="en">
+    HttpSession sysSession = request.getSession();
+%>
 <head>
     <meta charset="UTF-8">
     <title>登录</title>
@@ -18,6 +19,97 @@
 <link rel="stylesheet" type="text/css" href="css/common/common.css">
 <link rel="stylesheet" type="text/css" href="css/login.css">
 <script type="text/javascript" src="js/login.js"></script>
+<script type="text/javascript">
+    <%
+      User user = (User)sysSession.getAttribute("user");
+    %>
+    /**
+     * 登录按钮触发登录请求
+     */
+    $(function () {
+        $("#loginSubmit").click(function () {
+            let userNo = $('#inputUserNo').val();
+            let userNoReg = /^[1-9]\d*$/;
+            let userPassword = $('#inputPassword').val();
+            var isUserNo = userNoReg.test(userNo);
+            if(userNo.trim().length<1 || !isUserNo){
+                alert("学号格式错误！");
+                return;
+            }
+            if(userPassword.trim().length<1){
+                alert("密码不应为空！");
+                return;
+            }
+            $.ajax({
+                url:"<%=basePath%>/loginServlet",
+                dataType:"json",
+                type:"post",
+                data:{
+                    "userNo":userNo,
+                    "userPassword":userPassword
+                },
+                success:function (data) {
+                    console.log(data.code);
+                    if(data.success){
+                        // 登录成功，跳转到首页
+                        window.location.href="index.jsp";
+                    }
+                },
+                error:function (data) {
+                    alert(data.responseText)
+                }
+            })
+        });
+    })
+    /**
+     * 注册按钮触发注册请求
+     */
+    $(function () {
+        $("#registerSubmit").click(function () {
+            let userName = $('#inputUserName_register').val();
+            let userNo = $('#inputUserNo_register').val();
+            let userNoReg = /^[1-9]\d*$/;
+            let userPassword = $('#inputPassword_register').val();
+            let userSex = $('input[name="sex"]:checked').val();
+            let remark = $('#remark').val();
+            if(userName.trim().length<1){
+                alert("用户名不应为空！");
+                return;
+            }
+            var isUserNo = userNoReg.test(userNo);
+            if(userNo.trim().length<1 || !isUserNo){
+                alert("学号格式错误！");
+                return;
+            }
+            if(userPassword.trim().length<6){
+                alert("请保证密码在6位及以上！");
+                return;
+            }
+            $.ajax({
+                url:"<%=basePath%>/registerServlet",
+                dataType:"json",
+                type:"post",
+                data:{
+                    "userName":userName,
+                    "userNo":userNo,
+                    "userPassword":userPassword,
+                    "userSex":userSex,
+                    "remark":remark
+                },
+                success:function (data) {
+                    console.log(data.code);
+                    if(data.success){
+                        // 注册成功，跳转到首页
+                        window.location.href="index.jsp";
+                    }
+                },
+                error:function (data) {
+                    alert(data.responseText)
+                }
+            })
+        });
+    })
+</script>
 <body>
 <div class="title"></div>
 <div class="login">
@@ -39,14 +131,14 @@
             <div class="col-sm-offset-2 col-sm-10">
                 <div class="checkbox">
                     <label>
-                        没有账号? <a href="#" onclick="gotoRegister()">去注册</a>
+                        没有账号? <a href="#" id="gotoRegister">去注册</a>
                     </label>
                 </div>
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-3 col-sm-3">
-                <button type="button" class="btn btn-default" onclick="loginSubmit()">登录</button>
+                <button type="button" class="btn btn-default" id="loginSubmit">登录</button>
             </div>
             <div class=" col-sm-3">
                 <button type="reset" class="btn btn-default">重置</button>
@@ -93,14 +185,14 @@
             <div class="col-sm-offset-2 col-sm-10">
                 <div class="checkbox">
                     <label>
-                        已有账号? <a href="#" onclick="gotoLogin()">去登录</a>
+                        已有账号? <a href="#" id="gotoLogin">去登录</a>
                     </label>
                 </div>
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-3 col-sm-3">
-                <button type="button" class="btn btn-default" onclick="registerSubmit()">注册</button>
+                <button type="button" class="btn btn-default" id="registerSubmit">注册</button>
             </div>
             <div class=" col-sm-3">
                 <button type="reset" class="btn btn-default">重置</button>

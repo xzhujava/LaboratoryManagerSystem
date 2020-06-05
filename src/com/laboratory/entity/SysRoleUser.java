@@ -15,6 +15,15 @@ import java.io.Serializable;
 public class SysRoleUser implements Serializable {
     private static final long serialVersionUID=1L;
 
+    public SysRoleUser() {
+    }
+
+    public SysRoleUser(Integer userId) {
+        //永远新增学生
+        this.roleId = 1;
+        this.userId = userId;
+    }
+
     /**
      * 角色id
      */

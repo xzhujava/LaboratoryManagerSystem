@@ -3,6 +3,9 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+    <welcome-file-list>
+        <welcome-file>login.jsp</welcome-file>
+    </welcome-file-list>
     <!-- 过滤器注册 -->
     <filter>
         <filter-name>sysFilter</filter-name>
@@ -69,5 +72,13 @@
     <servlet-mapping>
         <servlet-name>getAppointServlet</servlet-name>
         <url-pattern>/getAppointServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>menuServlet</servlet-name>
+        <servlet-class>com.laboratory.servlet.MenuServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>menuServlet</servlet-name>
+        <url-pattern>/menuServlet</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -1,3 +1,8 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
 input,button,a {
     outline:0 none !important; blr:expression(this.onFocus=this.blur());
 }
@@ -15,4 +20,7 @@ a:hover{
 }
 a:active{
     text-decoration:none;
+}
+ul li{
+    list-style-type: none ;
 }

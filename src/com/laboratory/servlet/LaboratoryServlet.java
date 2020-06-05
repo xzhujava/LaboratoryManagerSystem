@@ -1,5 +1,7 @@
 package com.laboratory.servlet;
 
+import com.alibaba.fastjson.JSONObject;
+import com.laboratory.common.api.R;
 import com.laboratory.entity.Laboratory;
 import com.laboratory.service.LaboratoryService;
 import com.laboratory.service.impl.LaboratoryServiceImpl;
@@ -40,15 +42,21 @@ public class LaboratoryServlet extends HttpServlet {
         try {
             String laboratoryName = request.getParameter("laboratoryName");
             String laboratoryLocation = request.getParameter("laboratoryLocation");
+            Integer status = Integer.parseInt(request.getParameter("status"));
             if(null!=laboratoryName && laboratoryName.length()>0){
                 requestParam.put("laboratory_name",laboratoryName);
             }
             if(null!=laboratoryLocation && laboratoryLocation.length()>0){
                 requestParam.put("laboratory_location",laboratoryLocation);
             }
-            List<Laboratory> laboratoryInfo = laboratoryService.getLaboratoryInfo(requestParam);
+            if(status != -1){
+                requestParam.put("status",status);
+            }
+            List<Laboratory> laboratoryList = laboratoryService.getLaboratoryInfo(requestParam);
             //查询结果存入session
-            session.setAttribute("laboratoryList",laboratoryInfo);
+            //session.setAttribute("laboratoryList",laboratoryInfo);
+            writer.write(JSONObject.toJSONString(R.data(laboratoryList,"查询成功")));
+            writer.flush();
         } catch (Exception e) {
             e.printStackTrace();
             writer.println("系统异常，请重试");

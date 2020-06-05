@@ -1,0 +1,78 @@
+html,body{
+    height: 100%;
+    width: 100%;
+    background-color: #E5EDF0;
+}
+.top-nav{
+    width: 100%;
+    height: 15%;
+    background-color: #acd9ec;
+}
+.top-nav .logo img{
+    margin-top: 1.5em;
+    margin-left: 5em;
+    float: left;
+}
+.top-nav .logo h2{
+    float: left;
+    margin-left: 0.5em;
+    margin-top: 1.7em;
+}
+.left-nav{
+    height: 85%;
+    width: 15%;
+    background-color: #c2d5de;
+    float: left;
+}
+ul li{
+    list-style-type: none;
+}
+ul li div{
+    width: 100%;
+    height: 5em;
+    text-align: center;
+    line-height: 100px;
+    font-size: 20px;
+}
+ul .move{
+    background-color: #acd9ec;
+}
+ul .selected{
+    background-color: #90a5af;
+}
+.admin-ul{
+    display: none;
+}
+.datas{
+    float: left;
+    width: 85%;
+    height: 85%;
+}
+.datas .message{
+    margin-left: 40%;
+    margin-top: 20%;
+}
+.datas .tableData{
+    display: none;
+}
+.datas .tableData .selectForm{
+    margin-top: 2em;
+    margin-left: 10em;
+}
+.datas .tableData .laboratory{
+    display: none;
+}
+.datas .tableData .student{
+    display: none;
+}
+.datas .tableData .reservation{
+    display: none;
+}
+.datas .tableData .admin-laboratory{
+    display: none;
+}
+.datas .tableData table{
+    width: 85%;
+    height: auto;
+    margin: 1em auto;
+}

@@ -7,39 +7,45 @@
 
     </script>
     <style type="text/css">
-        .my-transition {
-            margin-top: 200px;
-            width: 100px;
-            height: 100px;
-            background: yellow;
-            transform: scale(0.5, 0.5);
-            opacity: 0;
-            transition: transform 0.5s linear, opacity 0.5s linear;
+        *{
+            margin: 0;
+            padding: 0;
         }
-
-        .my-click-transiton {
-            opacity: 1;
-            transform: scale(1, 1);
+        html,body{
+            height: 100%;
+            width: 100%;
+        }
+        .top{
+            width: 100%;
+            height: 15%;
+            background: #eeae6a;
+        }
+        .test {
+            height: 85%;
+            width: 15%;
+            background: #EE6AA7;
         }
 
 
     </style>
 </head>
-<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
-<body>
-<input type="button" id="mybutton" value="click">
-<div class="my-transition"></div>
-<script>
-    //用js触发CSS3-transition过渡动画
-    $('#mybutton').click(function() {
-        var myTransition = $('.my-transition');
-        if (myTransition.hasClass('my-click-transiton')) {
-            myTransition.removeClass('my-click-transiton')
-        } else {
-            myTransition.addClass('my-click-transiton');
-        }
-    });
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#btn").click(function () {
+            let status = $("#status").find("option:checked").val();
+            console.log(status)
+        });
+    })
 </script>
+<body>
 
+<button type="button" id="btn">按钮</button>
+
+<select class="form-control" id="status">
+    <option value="-1">请选择实验室状态</option>
+    <option value="0">空闲</option>
+    <option value="1">预约</option>
+</select>
 </body>
 </html>
