@@ -1,5 +1,6 @@
 package com.laboratory.service.impl;
 
+import com.laboratory.common.enumerate.AppointEnum;
 import com.laboratory.common.enumerate.LaboratoryStatus;
 import com.laboratory.common.utils.DateTimeUtil;
 import com.laboratory.dao.GenericDao;
@@ -55,7 +56,7 @@ public class ReservationServiceImpl implements ReservationService {
             for (Reservation reservation1 : allReservation) {
                 LocalDateTime reservationTime = reservation1.getReservationTime();
                 if(!reservationTime.isBefore(reservation.getReservationTime())){
-                    return "0";
+                    return AppointEnum.BOOKED.getMessage();
                 }
             }
             //本次预定时间在已经预定的时间之后则可继续预定
@@ -63,9 +64,9 @@ public class ReservationServiceImpl implements ReservationService {
             if(count > 0){
                 return reservationDao.getId(sql);
             }
-            return "0";
+            return AppointEnum.BOOKED.getMessage();
         }
-        return "-1";
+        return AppointEnum.FAILBOOK.getMessage();
     }
 
     @Override

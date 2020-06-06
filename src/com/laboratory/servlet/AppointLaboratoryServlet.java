@@ -2,6 +2,7 @@ package com.laboratory.servlet;
 
 import com.alibaba.fastjson.JSONObject;
 import com.laboratory.common.api.R;
+import com.laboratory.common.enumerate.AppointEnum;
 import com.laboratory.common.utils.DateTimeUtil;
 import com.laboratory.entity.Reservation;
 import com.laboratory.entity.User;
@@ -43,15 +44,15 @@ public class AppointLaboratoryServlet extends HttpServlet {
             String remark = request.getParameter("remark");
             Reservation reservation = new Reservation(laboratoryId,user.getUserId(),reservationTime,LocalDateTime.now(),remark);
             String id = reservationService.appointLaboratory(reservation);
-            if(Integer.parseInt(id) == 0){
+            if(id.equals(AppointEnum.BOOKED.getMessage())){
                 writer.write(JSONObject.toJSONString(R.fail("实验室已被预定")));
                 writer.flush();
-            }else if(Integer.parseInt(id) > 0){
-                reservation.setReservationId(id);
-                writer.write(JSONObject.toJSONString(R.data(reservation,"预定成功！")));
+            }else if(id.equals(AppointEnum.FAILBOOK.getMessage())){
+                writer.write(JSONObject.toJSONString(R.fail("预约失败，请重试")));
                 writer.flush();
             } else {
-                writer.write(JSONObject.toJSONString(R.fail("预约失败，请重试")));
+                reservation.setReservationId(id);
+                writer.write(JSONObject.toJSONString(R.data(reservation,"预定成功！")));
                 writer.flush();
             }
         } catch (Exception e) {
