@@ -18,9 +18,9 @@ public class SysRoleUser implements Serializable {
     public SysRoleUser() {
     }
 
-    public SysRoleUser(Integer userId) {
-        //永远新增学生
-        this.roleId = 1;
+    public SysRoleUser(String userId) {
+        //永远新增学生,
+        this.roleId = "1";
         this.userId = userId;
     }
 
@@ -28,27 +28,27 @@ public class SysRoleUser implements Serializable {
      * 角色id
      */
     @Id("role_id")
-    private Integer roleId;
+    private String roleId;
 
     /**
      * 用户id
      */
     @Id("user_id")
-    private Integer userId;
+    private String userId;
 
-    public Integer getRoleId() {
+    public String getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Integer roleId) {
+    public void setRoleId(String roleId) {
         this.roleId = roleId;
     }
 
-    public Integer getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

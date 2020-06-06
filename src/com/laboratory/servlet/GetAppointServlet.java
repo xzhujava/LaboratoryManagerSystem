@@ -1,8 +1,11 @@
 package com.laboratory.servlet;
 
+import com.alibaba.fastjson.JSONObject;
+import com.laboratory.common.api.R;
 import com.laboratory.entity.Reservation;
 import com.laboratory.service.ReservationService;
 import com.laboratory.service.impl.ReservationServiceImpl;
+import com.laboratory.vo.ReservationVO;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -33,7 +36,6 @@ public class GetAppointServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
         PrintWriter writer = response.getWriter();
         map = new HashMap<>(16);
         try {
@@ -41,16 +43,22 @@ public class GetAppointServlet extends HttpServlet {
             if(null != userNo && userNo.length()>0){
                 map.put("user_no",userNo);
             }
-            String userName = request.getParameter("userName");
-            if(null != userName && userName.length()>0){
-                map.put("user_name",userName);
+            String status = request.getParameter("status");
+            if(null != status && status.length()>0){
+                int st = Integer.parseInt(status);
+                if(st>-1){
+                    map.put("status",status);
+                }
             }
-            String laboratoryName = request.getParameter("laboratoryName");
-            if(null != laboratoryName && laboratoryName.length()>0){
-                map.put("laboratory_name",laboratoryName);
+            String laboratoryId = request.getParameter("laboratoryId");
+            if(null != laboratoryId && laboratoryId.length()>0){
+                if(!laboratoryId.equals("-1")){
+                    map.put("laboratory_id",laboratoryId);
+                }
             }
-            List<Reservation> appointList = reservationService.getAppointInfos(map);
-            session.setAttribute("appointList",appointList);
+            List<ReservationVO> appointList = reservationService.getAppointInfos(map);
+            writer.write(JSONObject.toJSONString(R.data(appointList,"查询成功")));
+            writer.flush();
         } catch (Exception e) {
             e.printStackTrace();
             writer.print("系统异常，请重试");

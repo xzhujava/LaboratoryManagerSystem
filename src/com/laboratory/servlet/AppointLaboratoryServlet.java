@@ -1,5 +1,7 @@
 package com.laboratory.servlet;
 
+import com.alibaba.fastjson.JSONObject;
+import com.laboratory.common.api.R;
 import com.laboratory.common.utils.DateTimeUtil;
 import com.laboratory.entity.Reservation;
 import com.laboratory.entity.User;
@@ -36,24 +38,25 @@ public class AppointLaboratoryServlet extends HttpServlet {
         PrintWriter writer = response.getWriter();
         try {
             User user = (User) session.getAttribute("user");
-            Integer laboratoryId = Integer.parseInt(request.getParameter("laboratoryId"));
+            String laboratoryId = request.getParameter("laboratoryId");
             LocalDateTime reservationTime = DateTimeUtil.parseStringToLocalDateTime(request.getParameter("reservationTime"));
             String remark = request.getParameter("remark");
             Reservation reservation = new Reservation(laboratoryId,user.getUserId(),reservationTime,LocalDateTime.now(),remark);
-            Integer id = reservationService.appointLaboratory(reservation);
-            if(id == 0){
-                writer.println("实验室已被预定");
+            String id = reservationService.appointLaboratory(reservation);
+            if(Integer.parseInt(id) == 0){
+                writer.write(JSONObject.toJSONString(R.fail("实验室已被预定")));
                 writer.flush();
-            }else if(id > 0){
+            }else if(Integer.parseInt(id) > 0){
                 reservation.setReservationId(id);
-                session.setAttribute("reservation",reservation);
+                writer.write(JSONObject.toJSONString(R.data(reservation,"预定成功！")));
+                writer.flush();
             } else {
-                writer.println("预约失败，请重试");
+                writer.write(JSONObject.toJSONString(R.fail("预约失败，请重试")));
                 writer.flush();
             }
         } catch (Exception e) {
             e.printStackTrace();
-            writer.println("系统异常，请重试");
+            writer.write("系统异常，请重试");
             writer.flush();
         }
     }

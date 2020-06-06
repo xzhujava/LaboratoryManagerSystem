@@ -3,6 +3,7 @@ package com.laboratory.entity;
 import com.laboratory.common.annotation.Column;
 import com.laboratory.common.annotation.Entity;
 import com.laboratory.common.annotation.Id;
+import com.laboratory.common.utils.IdGenUtil;
 
 import java.io.Serializable;
 
@@ -24,6 +25,7 @@ public class User implements Serializable {
     }
 
     public User(String userName, String userNo, String userPassword, String userSex,String remark) {
+        this.userId = IdGenUtil.uuid();
         this.userName = userName;
         this.userNo = userNo;
         this.userPassword = userPassword;
@@ -35,7 +37,7 @@ public class User implements Serializable {
      * 用户id
      */
     @Id("user_id")
-    private Integer userId;
+    private String userId;
 
     /**
      * 用户姓名
@@ -67,11 +69,11 @@ public class User implements Serializable {
     @Column("remark")
     private String remark;
 
-    public Integer getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

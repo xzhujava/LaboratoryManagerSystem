@@ -36,25 +36,25 @@ public class LaboratoryServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
         PrintWriter writer = response.getWriter();
         requestParam = new HashMap<>(16);
         try {
             String laboratoryName = request.getParameter("laboratoryName");
             String laboratoryLocation = request.getParameter("laboratoryLocation");
-            Integer status = Integer.parseInt(request.getParameter("status"));
+            String status = request.getParameter("status");
             if(null!=laboratoryName && laboratoryName.length()>0){
                 requestParam.put("laboratory_name",laboratoryName);
             }
             if(null!=laboratoryLocation && laboratoryLocation.length()>0){
                 requestParam.put("laboratory_location",laboratoryLocation);
             }
-            if(status != -1){
-                requestParam.put("status",status);
+            if(null != status && status.length()>0){
+                int st = Integer.parseInt(status);
+                if(st!=-1){
+                    requestParam.put("status",st);
+                }
             }
             List<Laboratory> laboratoryList = laboratoryService.getLaboratoryInfo(requestParam);
-            //查询结果存入session
-            //session.setAttribute("laboratoryList",laboratoryInfo);
             writer.write(JSONObject.toJSONString(R.data(laboratoryList,"查询成功")));
             writer.flush();
         } catch (Exception e) {

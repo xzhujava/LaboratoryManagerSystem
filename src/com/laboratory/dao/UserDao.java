@@ -18,4 +18,12 @@ public interface UserDao {
      * @throws Exception
      */
     List<User> findStudent(String sql) throws Exception;
+
+    /**
+     * 获取主键id值
+     * @param sql
+     * @return
+     * @throws Exception
+     */
+    String getId(String sql) throws Exception;
 }

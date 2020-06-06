@@ -50,6 +50,14 @@
         <url-pattern>/laboratoryServlet</url-pattern>
     </servlet-mapping>
     <servlet>
+        <servlet-name>getAllLaboratoryNameServlet</servlet-name>
+        <servlet-class>com.laboratory.servlet.GetAllLaboratoryNameServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getAllLaboratoryNameServlet</servlet-name>
+        <url-pattern>/getAllLaboratoryNameServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>appointLaboratoryServlet</servlet-name>
         <servlet-class>com.laboratory.servlet.AppointLaboratoryServlet</servlet-class>
     </servlet>
@@ -80,5 +88,13 @@
     <servlet-mapping>
         <servlet-name>menuServlet</servlet-name>
         <url-pattern>/menuServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>changeStatusServlet</servlet-name>
+        <servlet-class>com.laboratory.servlet.ChangeStatusServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>changeStatusServlet</servlet-name>
+        <url-pattern>/changeStatusServlet</url-pattern>
     </servlet-mapping>
 </web-app>

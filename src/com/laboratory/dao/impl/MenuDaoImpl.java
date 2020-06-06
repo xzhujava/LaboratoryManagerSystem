@@ -24,7 +24,7 @@ public class MenuDaoImpl implements MenuDao {
         menuList = new ArrayList<Menu>();
         while (resultSet.next()){
             Menu menu = new Menu();
-            menu.setMenuId(resultSet.getInt("menu_id"));
+            menu.setMenuId(resultSet.getString("menu_id"));
             menu.setMenuName(resultSet.getString("menu_name"));
             menu.setMenuKey(resultSet.getString("menu_key"));
             menuList.add(menu);

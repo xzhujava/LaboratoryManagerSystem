@@ -51,8 +51,8 @@ public class RegisterServlet extends HttpServlet {
                 //注册成功，查询菜单
                 Map<String,Object> userId = new HashMap<>();
                 userId.put("user_id",registered.getUserId());
-                List<Menu> menu = menuService.findMenu(userId);
-                session.setAttribute("menu",menu);
+                List<Menu> menuList = menuService.findMenu(userId);
+                session.setAttribute("menuList",menuList);
                 writer.write(JSONObject.toJSONString(R.data(registered,"注册成功")));
                 writer.flush();
                 //因为前端是发送的ajax请求，所以这里直接把登录成功的消息返回给前端，由前端去跳转

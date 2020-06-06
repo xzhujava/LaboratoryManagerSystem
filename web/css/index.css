@@ -76,3 +76,19 @@ ul .selected{
     height: auto;
     margin: 1em auto;
 }
+.modal{
+    height: 40em;
+}
+.modal-body{
+    margin-left: 2em;
+}
+.modal-body .date{
+    margin-left: 1em;
+    width: 35em;
+}
+.modal-body input{
+    width: 35em;
+}
+.modal-body textarea{
+    width: 35em;
+}

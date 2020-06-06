@@ -26,7 +26,7 @@ public class UserDaoImpl implements UserDao {
         studentList = new ArrayList<User>();
         while (resultSet.next()){
             User user = new User();
-            user.setUserId(resultSet.getInt("user_id"));
+            user.setUserId(resultSet.getString("user_id"));
             user.setUserName(resultSet.getString("user_name"));
             user.setUserNo(resultSet.getString("user_no"));
             user.setUserPassword(resultSet.getString("user_password"));
@@ -36,5 +36,17 @@ public class UserDaoImpl implements UserDao {
         }
         DBHelper.release(preparedStatement,resultSet);
         return studentList;
+    }
+
+    @Override
+    public String getId(String sql) throws Exception {
+        String id = null;
+        Connection connection = DBHelper.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()){
+            id = resultSet.getString("user_id");
+        }
+        return id;
     }
 }

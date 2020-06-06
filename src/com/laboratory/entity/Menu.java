@@ -20,7 +20,7 @@ public class Menu implements Serializable {
      * 菜单id
      */
     @Id("menu_id")
-    private Integer menuId;
+    private String menuId;
 
     /**
      * 菜单名称
@@ -31,11 +31,11 @@ public class Menu implements Serializable {
     @Column("menu_key")
     private String menuKey;
 
-    public Integer getMenuId() {
+    public String getMenuId() {
         return menuId;
     }
 
-    public void setMenuId(Integer menuId) {
+    public void setMenuId(String menuId) {
         this.menuId = menuId;
     }
 

@@ -55,8 +55,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User registered(User userParam) throws Exception{
         userParam.setUserPassword(Md5Utils.hash(userParam.getUserPassword()));
-        Integer id = userGenericDao.save(userParam);
-        if(id>0){
+        Integer count = userGenericDao.save(userParam);
+        if(count > 0){
+            String sql = "select * from user where user_no = " + userParam.getUserNo();
+            String id = userDao.getId(sql);
             //注册成功，把新增的学生信息与角色关联
             SysRoleUser sysRoleUser = new SysRoleUser(id);
             sysRoleUserGenericDao.save(sysRoleUser);
@@ -74,10 +76,18 @@ public class UserServiceImpl implements UserService {
         List<SysRoleUser> allStudentType = sysRoleUserGenericDao.findAllByConditions(map, SysRoleUser.class);
         StringBuilder sql = new StringBuilder("select * from user where user_id in (");
         for (SysRoleUser sysRoleUser : allStudentType) {
-            sql.append(sysRoleUser.getUserId() + ",");
+            sql.append("'"+sysRoleUser.getUserId() + "',");
         }
         sql = new StringBuilder(sql.substring(0,sql.length()-1));
         sql.append(")");
+        String userName = (String) requestParam.get("user_name");
+        String userNo = (String) requestParam.get("user_no");
+        if(null != userName && userName.length()>0){
+            sql.append(" and user_name = '"+userName + "'");
+        }
+        if(null != userNo && userNo.length()>0){
+            sql.append(" and user_no = '"+userNo + "'");
+        }
         return userDao.findStudent(sql.toString());
     }
 }

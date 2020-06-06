@@ -19,7 +19,7 @@ public class Role implements Serializable {
      * 角色id
      */
     @Id("role_id")
-    private Integer roleId;
+    private String roleId;
     /**
      *角色名称
      */
@@ -36,11 +36,11 @@ public class Role implements Serializable {
     @Column("remark")
     private String remark;
 
-    public Integer getRoleId() {
+    public String getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Integer roleId) {
+    public void setRoleId(String roleId) {
         this.roleId = roleId;
     }
 

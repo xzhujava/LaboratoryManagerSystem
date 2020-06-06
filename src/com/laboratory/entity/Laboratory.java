@@ -20,7 +20,7 @@ public class Laboratory implements Serializable {
      * 实验室id
      */
     @Id("laboratory_id")
-    private Integer laboratoryId;
+    private String laboratoryId;
 
     /**
      * 实验室名称
@@ -40,11 +40,11 @@ public class Laboratory implements Serializable {
     @Column("status")
     private Integer status;
 
-    public Integer getLaboratoryId() {
+    public String getLaboratoryId() {
         return laboratoryId;
     }
 
-    public void setLaboratoryId(Integer laboratoryId) {
+    public void setLaboratoryId(String laboratoryId) {
         this.laboratoryId = laboratoryId;
     }
 

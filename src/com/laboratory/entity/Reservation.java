@@ -1,8 +1,10 @@
 package com.laboratory.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.laboratory.common.annotation.Column;
 import com.laboratory.common.annotation.Entity;
 import com.laboratory.common.annotation.Id;
+import com.laboratory.common.utils.IdGenUtil;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -20,7 +22,8 @@ public class Reservation implements Serializable {
     }
 
     //新增预约记录
-    public Reservation(Integer laboratoryId, Integer userId, LocalDateTime reservationTime, LocalDateTime createTime, String remark) {
+    public Reservation(String laboratoryId, String userId, LocalDateTime reservationTime, LocalDateTime createTime, String remark) {
+        this.reservationId = IdGenUtil.uuid();
         this.laboratoryId = laboratoryId;
         this.userId = userId;
         this.reservationTime = reservationTime;
@@ -34,30 +37,32 @@ public class Reservation implements Serializable {
      *预约id
      */
     @Id("reservation_id")
-    private Integer reservationId;
+    private String reservationId;
 
     /**
      * 实验室id
      */
     @Column("laboratory_id")
-    private Integer laboratoryId;
+    private String laboratoryId;
 
     /**
      * 用户id
      */
     @Column("user_id")
-    private Integer userId;
+    private String userId;
 
     /**
      * 预约时间
      */
     @Column("reservation_time")
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime reservationTime;
 
     /**
      * 创建时间
      */
     @Column("create_time")
+    @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
     /**
@@ -78,27 +83,27 @@ public class Reservation implements Serializable {
     @Column("score")
     private Double score;
 
-    public Integer getReservationId() {
+    public String getReservationId() {
         return reservationId;
     }
 
-    public void setReservationId(Integer reservationId) {
+    public void setReservationId(String reservationId) {
         this.reservationId = reservationId;
     }
 
-    public Integer getLaboratoryId() {
+    public String getLaboratoryId() {
         return laboratoryId;
     }
 
-    public void setLaboratoryId(Integer laboratoryId) {
+    public void setLaboratoryId(String laboratoryId) {
         this.laboratoryId = laboratoryId;
     }
 
-    public Integer getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

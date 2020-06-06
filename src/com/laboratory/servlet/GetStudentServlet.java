@@ -37,7 +37,6 @@ public class GetStudentServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
         PrintWriter writer = response.getWriter();
         map = new HashMap<>();
         try {
@@ -50,7 +49,6 @@ public class GetStudentServlet extends HttpServlet {
                 map.put("user_no",userNo);
             }
             List<User> studentList = userService.findStudent(map);
-            session.setAttribute("studentList",studentList);
             writer.write(JSONObject.toJSONString(R.data(studentList,"查询成功")));
             writer.flush();
         } catch (Exception e) {

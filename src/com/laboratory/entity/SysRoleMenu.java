@@ -18,27 +18,27 @@ public class SysRoleMenu implements Serializable {
      * 菜单id
      */
     @Id("menu_id")
-    private Integer menuId;
+    private String menuId;
 
     /**
      * 角色id
      */
     @Id("role_id")
-    private Integer roleId;
+    private String roleId;
 
-    public Integer getMenuId() {
+    public String getMenuId() {
         return menuId;
     }
 
-    public void setMenuId(Integer menuId) {
+    public void setMenuId(String menuId) {
         this.menuId = menuId;
     }
 
-    public Integer getRoleId() {
+    public String getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Integer roleId) {
+    public void setRoleId(String roleId) {
         this.roleId = roleId;
     }
 }

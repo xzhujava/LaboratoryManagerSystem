@@ -45,11 +45,8 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
             }
             PropertyDescriptor pd = new PropertyDescriptor(field.getName(),t.getClass());
             if (field.isAnnotationPresent(Id.class)) {
-                //数据库设置了主键自增，这里不需要对id添加操作;
-                //如果数据库未设置主键策略这里需要处理
-                continue;
-//                fieldNames.append(field.getAnnotation(Id.class).value()).append(",");
-//                fieldValues.add(pd.getReadMethod().invoke(t));
+                fieldNames.append(field.getAnnotation(Id.class).value()).append(",");
+                fieldValues.add(pd.getReadMethod().invoke(t));
             }
             if(field.isAnnotationPresent(Column.class)) {
                 fieldNames.append(field.getAnnotation(Column.class).value()).append(",");
@@ -70,16 +67,11 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
         //设置SQL参数占位符的值
         setParameter(fieldValues, ps, false);
         //执行SQL
-        ps.executeUpdate();
-        ResultSet resultSet = ps.getGeneratedKeys();
-        if(resultSet.next()){
-            Integer id = resultSet.getInt(1);
-            return id;
-        }
+        int i = ps.executeUpdate();
         DBHelper.release(ps, null);
 
         System.out.println(sql + "\n" + clazz.getSimpleName() + "添加成功!");
-        return -1;
+        return i;
     }
 
     @Override
@@ -218,7 +210,7 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
         String sql = "select " + fieldNames + " from " + tableName + " " + TABLE_ALIAS;
         PreparedStatement ps = null;
         List<Object> values = null;
-        if (sqlWhereMap != null) {
+        if (sqlWhereMap != null && sqlWhereMap.size()>0) {
             List<Object> sqlWhereWithValues = getSqlWhereWithValues(sqlWhereMap);
             if (sqlWhereWithValues != null) {
                 //拼接SQL条件

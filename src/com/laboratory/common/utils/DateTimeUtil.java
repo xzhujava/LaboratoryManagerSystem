@@ -17,4 +17,8 @@ public class DateTimeUtil {
         return LocalDateTime.parse(dateStr,dateTimeFormatter);
     }
 
+    public static String parseLocalDateTimeToString(LocalDateTime localDateTime){
+        return dateTimeFormatter.format(localDateTime);
+    }
+
 }

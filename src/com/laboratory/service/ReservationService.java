@@ -1,6 +1,7 @@
 package com.laboratory.service;
 
 import com.laboratory.entity.Reservation;
+import com.laboratory.vo.ReservationVO;
 
 import java.util.List;
 import java.util.Map;
@@ -18,13 +19,19 @@ public interface ReservationService {
      * @param reservation 预约信息
      * @return
      */
-    Integer appointLaboratory(Reservation reservation) throws Exception;
+    String appointLaboratory(Reservation reservation) throws Exception;
 
     /**
      * 获取预约信息
      * @param requestParam
      * @return
      */
-    List<Reservation> getAppointInfos(Map<String,Object> requestParam) throws Exception;
+    List<ReservationVO> getAppointInfos(Map<String,Object> requestParam) throws Exception;
 
+    /**
+     * 修改预约记录状态
+     * @param reservationId
+     * @return
+     */
+    Boolean changeStatus(String reservationId) throws Exception;
 }

@@ -18,4 +18,18 @@ public interface LaboratoryService {
      */
     List<Laboratory> getLaboratoryInfo(Map<String,Object> requestParam) throws Exception;
 
+    /**
+     * 获取所有名称
+     * @return
+     * @throws Exception
+     */
+    List<Laboratory> getAllName()throws Exception;
+
+    /**
+     * 更改实验室状态
+     * @param laboratoryId
+     * @return
+     * @throws Exception
+     */
+    Boolean changeStatus(String laboratoryId) throws Exception;
 }

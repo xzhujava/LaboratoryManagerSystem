@@ -30,6 +30,7 @@ public class MenuServiceImpl implements MenuService {
     private Map<String,Object> param = null;
     private List<SysRoleMenu> roleMenus = null;
     private List<Menu> menuList = null;
+
     @Override
     public List<Menu> findMenu(Map<String, Object> map) throws Exception{
         List<SysRoleUser> roleUsers = sysRoleUserGenericDao.findAllByConditions(map, SysRoleUser.class);
@@ -37,7 +38,7 @@ public class MenuServiceImpl implements MenuService {
             param = new HashMap<>();
             roleMenus = new ArrayList<SysRoleMenu>();
             SysRoleUser sysRoleUser = roleUsers.get(0);
-            Integer roleId = sysRoleUser.getRoleId();
+            String roleId = sysRoleUser.getRoleId();
             param.put("role_id",roleId);
             roleMenus = sysRoleMenuGenericDao.findAllByConditions(param, SysRoleMenu.class);
         }
