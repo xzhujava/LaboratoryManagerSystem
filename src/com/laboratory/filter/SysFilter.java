@@ -31,7 +31,8 @@ public class SysFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest)req;
         HttpServletResponse response = (HttpServletResponse)resp;
         String requestURI = request.getRequestURI();
-        if(requestURI.contains("login") || requestURI.contains("register")){
+        //登录、注册、图片请求放行
+        if(requestURI.contains("login") || requestURI.contains("register")||requestURI.contains("image")){
             chain.doFilter(req, resp);
         }else{
             HttpSession session = request.getSession();
