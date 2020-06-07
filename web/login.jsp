@@ -4,7 +4,6 @@
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;
-    HttpSession sysSession = request.getSession();
 %>
 <head>
     <meta charset="UTF-8">
@@ -20,9 +19,6 @@
 <link rel="stylesheet" type="text/css" href="css/login.css">
 <script type="text/javascript" src="js/login.js"></script>
 <script type="text/javascript">
-    <%
-      User user = (User)sysSession.getAttribute("user");
-    %>
     /**
      * 登录按钮触发登录请求
      */
