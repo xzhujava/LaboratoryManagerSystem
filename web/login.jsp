@@ -110,14 +110,14 @@
 <div class="login">
     <form class="form-horizontal">
         <div class="form-group">
-            <label for="inputUserNo" class="col-md-4 control-label">学/工号：</label>
+            <label for="inputUserNo" class="col-md-4 control-label">学号：</label>
             <div class="col-md-8">
-                <input type="text" class="form-control" id="inputUserNo" placeholder="请输入你的学号或工号">
+                <input type="text" class="form-control" id="inputUserNo" placeholder="请输入你的学号">
             </div>
         </div>
 
         <div class="form-group">
-            <label for="inputPassword" class="col-sm-4 control-label">密&nbsp;&nbsp;&nbsp;&nbsp;码：</label>
+            <label for="inputPassword" class="col-sm-4 control-label">密码：</label>
             <div class="col-sm-8">
                 <input type="password" class="form-control" id="inputPassword" placeholder="请输入你的密码">
             </div>

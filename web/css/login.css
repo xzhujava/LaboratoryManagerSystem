@@ -6,10 +6,10 @@ body {
     width: 25%;
     height: 5em;
     margin: 10em auto;
-    background: url("../image/title.png") 73px 10px no-repeat;
+    background: url("../image/title.png") 0 10px no-repeat;
 }
 .login{
-    width: 20%;
+    width: 26%;
     height: auto;
     margin: -10em auto;
     box-shadow: 5px 5px 5px #453d3d;
@@ -21,7 +21,7 @@ body {
 }
 .register{
     display: none;
-    width: 20%;
+    width: 26%;
     height: auto;
     margin: -10em auto;
     box-shadow: 5px 5px 5px #453d3d;

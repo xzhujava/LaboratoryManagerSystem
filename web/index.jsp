@@ -221,7 +221,7 @@
                 success: function (data) {
                     if (data.success && data.code === 200) {
                         //预约成功，
-                        alert("预约成功，请准时参加试验");
+                        alert("预约成功，请准时参加实验");
                         //清空 form的值
                         $(".modal-body form").find('input[type=text],select,textarea').each(function() {
                             $(this).val('');
@@ -360,83 +360,83 @@
 </script>
 <body>
 <!--头部导航-->
-<div class="top-nav">
-    <div class="logo">
+<div class="top-nav row">
+    <div class="logo col-xs-5">
         <img src="image/logo.jpg" style="width: 100px;height: 100px">
         <h2>实验室管理系统</h2>
     </div>
 </div>
 <!--左侧导航-->
 <div class="left-nav">
-    <ul class="student-ul">
-        <li class='selected' id='home'>
-            <div><b> 首页 </b></div>
-        </li>
-        <c:forEach items="${menuList}" var="menu">
-            <li id="${menu.menuKey}">
-                <div><b> ${menu.menuName} </b></div>
+        <ul class="student-ul">
+            <li class='selected' id='home'>
+                <div><b> 首页 </b></div>
             </li>
-        </c:forEach>
-    </ul>
-</div>
+            <c:forEach items="${menuList}" var="menu">
+                <li id="${menu.menuKey}">
+                    <div><b> ${menu.menuName} </b></div>
+                </li>
+            </c:forEach>
+        </ul>
+    </div>
 <!--数据主体-->
 <div class="datas">
-    <%
-        User user = (User) sysSession.getAttribute("user");
-    %>
-    <div class="message"><h3>欢迎你回来，<%=user.getUserName()%></h3></div>
-    <div class="tableData">
-        <form class="laboratory form-inline selectForm">
-            <div class="form-group">
-                <label for="laboratoryName">实验室名称：</label>
-                <input type="text" class="form-control" id="laboratoryName" placeholder="请输入实验室名称">
-            </div>
-            <div class="form-group">
-                <label for="laboratoryLocation">实验室地址：</label>
-                <input type="text" class="form-control" id="laboratoryLocation" placeholder="请输入实验室地址">
-            </div>
-            <div class="form-group">
-                <label for="status">实验室状态：</label>
-                <select class="form-control" id="status">
-                    <option value="-1">请选择实验室状态</option>
-                    <option value="0">空闲</option>
-                    <option value="1">预约</option>
-                </select>
-            </div>
-            <button type="button" class="btn btn-default" id="search">搜索</button>
-        </form>
-        <form class="student form-inline selectForm">
-            <div class="form-group">
-                <label for="userName">学生姓名：</label>
-                <input type="text" class="form-control" id="userName" placeholder="请输入学生姓名">
-            </div>
-            <div class="form-group">
-                <label for="userNo">学生学号：</label>
-                <input type="text" class="form-control" id="userNo" placeholder="请输入学生学号">
-            </div>
-            <button type="button" class="btn btn-default" id="studentSearch">搜索</button>
-        </form>
-        <form class="reservation form-inline selectForm">
-            <div class="form-group">
-                <label for="laboratoryId">实验室：</label>
-                <select class="form-control" id="laboratoryId">
-                    <option value="-1">请选择实验室</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="reservation-status">状态：</label>
-                <select class="form-control" id="reservation-status">
-                    <option value="-1">请选择状态</option>
-                    <option value="0">待完成</option>
-                    <option value="1">已完成</option>
-                </select>
-            </div>
-            <button type="button" class="btn btn-default" id="reservationSearch">搜索</button>
-        </form>
-        <table class="table table-bordered table-hover">
-        </table>
+        <%
+            User user = (User) sysSession.getAttribute("user");
+        %>
+        <div class="message"><h3>欢迎你回来，<%=user.getUserName()%></h3></div>
+        <div class="tableData">
+            <form class="laboratory form-inline selectForm">
+                <div class="form-group">
+                    <label for="laboratoryName">实验室名称：</label>
+                    <input type="text" class="form-control" id="laboratoryName" placeholder="请输入实验室名称">
+                </div>
+                <div class="form-group">
+                    <label for="laboratoryLocation">实验室地址：</label>
+                    <input type="text" class="form-control" id="laboratoryLocation" placeholder="请输入实验室地址">
+                </div>
+                <div class="form-group">
+                    <label for="status">实验室状态：</label>
+                    <select class="form-control" id="status">
+                        <option value="-1">请选择实验室状态</option>
+                        <option value="0">空闲</option>
+                        <option value="1">预约</option>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-default" id="search">搜索</button>
+            </form>
+            <form class="student form-inline selectForm">
+                <div class="form-group">
+                    <label for="userName">学生姓名：</label>
+                    <input type="text" class="form-control" id="userName" placeholder="请输入学生姓名">
+                </div>
+                <div class="form-group">
+                    <label for="userNo">学生学号：</label>
+                    <input type="text" class="form-control" id="userNo" placeholder="请输入学生学号">
+                </div>
+                <button type="button" class="btn btn-default" id="studentSearch">搜索</button>
+            </form>
+            <form class="reservation form-inline selectForm">
+                <div class="form-group">
+                    <label for="laboratoryId">实验室：</label>
+                    <select class="form-control" id="laboratoryId">
+                        <option value="-1">请选择实验室</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="reservation-status">状态：</label>
+                    <select class="form-control" id="reservation-status">
+                        <option value="-1">请选择状态</option>
+                        <option value="0">待完成</option>
+                        <option value="1">已完成</option>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-default" id="reservationSearch">搜索</button>
+            </form>
+            <table class="table table-bordered table-hover">
+            </table>
+        </div>
     </div>
-</div>
 <%--模态框--%>
 <div class="modal fade appointLaboratory" id="appointLaboratory" tabindex="-1" role="dialog" aria-labelledby="appointLaboratory">
     <div class="modal-dialog modal-lg" role="document">
